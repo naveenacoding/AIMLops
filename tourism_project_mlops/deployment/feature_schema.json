@@ -1,0 +1,104 @@
+{
+  "columns": [
+    "Unnamed: 0",
+    "Age",
+    "TypeofContact",
+    "CityTier",
+    "DurationOfPitch",
+    "Occupation",
+    "Gender",
+    "NumberOfPersonVisiting",
+    "NumberOfFollowups",
+    "ProductPitched",
+    "PreferredPropertyStar",
+    "MaritalStatus",
+    "NumberOfTrips",
+    "Passport",
+    "PitchSatisfactionScore",
+    "OwnCar",
+    "NumberOfChildrenVisiting",
+    "Designation",
+    "MonthlyIncome"
+  ],
+  "numeric": [
+    "Unnamed: 0",
+    "Age",
+    "CityTier",
+    "DurationOfPitch",
+    "NumberOfPersonVisiting",
+    "NumberOfFollowups",
+    "PreferredPropertyStar",
+    "NumberOfTrips",
+    "Passport",
+    "PitchSatisfactionScore",
+    "OwnCar",
+    "NumberOfChildrenVisiting",
+    "MonthlyIncome"
+  ],
+  "categorical": [
+    "TypeofContact",
+    "Occupation",
+    "Gender",
+    "ProductPitched",
+    "MaritalStatus",
+    "Designation"
+  ],
+  "defaults": {
+    "Unnamed: 0": 2600.5,
+    "Age": 36.0,
+    "TypeofContact": "Self Enquiry",
+    "CityTier": 1.0,
+    "DurationOfPitch": 14.0,
+    "Occupation": "Salaried",
+    "Gender": "Male",
+    "NumberOfPersonVisiting": 3.0,
+    "NumberOfFollowups": 4.0,
+    "ProductPitched": "Basic",
+    "PreferredPropertyStar": 3.0,
+    "MaritalStatus": "Married",
+    "NumberOfTrips": 3.0,
+    "Passport": 0.0,
+    "PitchSatisfactionScore": 3.0,
+    "OwnCar": 1.0,
+    "NumberOfChildrenVisiting": 1.0,
+    "Designation": "Executive",
+    "MonthlyIncome": 22403.0
+  },
+  "categories": {
+    "TypeofContact": [
+      "Company Invited",
+      "Self Enquiry"
+    ],
+    "Occupation": [
+      "Free Lancer",
+      "Large Business",
+      "Salaried",
+      "Small Business"
+    ],
+    "Gender": [
+      "Fe Male",
+      "Female",
+      "Male"
+    ],
+    "ProductPitched": [
+      "Basic",
+      "Deluxe",
+      "King",
+      "Standard",
+      "Super Deluxe"
+    ],
+    "MaritalStatus": [
+      "Divorced",
+      "Married",
+      "Single",
+      "Unmarried"
+    ],
+    "Designation": [
+      "AVP",
+      "Executive",
+      "Manager",
+      "Senior Manager",
+      "VP"
+    ]
+  }
+}
