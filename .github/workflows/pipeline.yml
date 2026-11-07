@@ -3,77 +3,103 @@ name: Tourism Project Pipeline
 on:
   push:
     branches:
-      - main  # Automatically triggers on push to the main branch
-  workflow_dispatch:  # lets you click "Run workflow" in the Actions tab
+      - main
+  workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-
   register-dataset:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Install Dependencies
-        run: <add_code_here>
-      - name: Register Dataset
-        run: <add_code_here>
-      - name: Upload Registered Dataset
-        uses: actions/upload-artifact@v4
-        with:
-          name: registered-data
-          path: tourism_project/data/tourism.csv
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r tourism_project_mlops/requirements.txt
+
+      - name: Validate dataset
+        run: |
+          python tourism_project_mlops/model_building/data_register.py
 
   data-prep:
     needs: register-dataset
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Install Dependencies
-        run: <add_code_here>
-      - name: Run Data Preparation
-        run: <add_code_here>
-      - name: Upload Train Test Splits
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r tourism_project_mlops/requirements.txt
+
+      - name: Prepare train/test data
+        run: |
+          python tourism_project_mlops/model_building/prep.py
+
+      - name: Upload train/test splits
         uses: actions/upload-artifact@v4
         with:
           name: data-splits
           path: |
-            Xtrain.csv
-            Xtest.csv
-            ytrain.csv
-            ytest.csv
+            tourism_project_mlops/artifacts/train.csv
+            tourism_project_mlops/artifacts/test.csv
 
-  model-traning:
+  model-training:
     needs: data-prep
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Install Dependencies
-        run: <add_code_here>
-      - name: Download Train Test Splits
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r tourism_project_mlops/requirements.txt
+
+      - name: Download train/test splits
         uses: actions/download-artifact@v4
         with:
           name: data-splits
-      - name: Start MLflow Server
+          path: tourism_project_mlops/artifacts
+
+      - name: Train and evaluate model
         run: |
-          nohup mlflow ui --host 0.0.0.0 --port 5000 &  # Run MLflow UI in the background
-          sleep 5  # Wait for a moment to let the server starts
-      - name: Model Building
-        run: <add_code_here>
-      - name: Commit Trained Model
+          python tourism_project_mlops/model_building/train.py
+
+      - name: Upload MLflow run data
+        uses: actions/upload-artifact@v4
+        with:
+          name: mlflow-runs
+          path: tourism_project_mlops/mlruns
+
+      - name: Commit trained model
         run: |
           git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add <add_code_here>   # path to the saved model file
-          git commit -m "Add trained model [skip ci]" || echo "No changes to commit"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tourism_project_mlops/deployment/model.joblib
+          git add tourism_project_mlops/deployment/feature_schema.json
+          git commit -m "Update trained tourism model [skip ci]" || echo "No model changes to commit"
           git push
