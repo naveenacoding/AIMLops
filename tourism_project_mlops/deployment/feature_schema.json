@@ -1,6 +1,5 @@
 {
   "columns": [
-    "Unnamed: 0",
     "Age",
     "TypeofContact",
     "CityTier",
@@ -21,7 +20,6 @@
     "MonthlyIncome"
   ],
   "numeric": [
-    "Unnamed: 0",
     "Age",
     "CityTier",
     "DurationOfPitch",
@@ -44,7 +42,6 @@
     "Designation"
   ],
   "defaults": {
-    "Unnamed: 0": 2600.5,
     "Age": 36.0,
     "TypeofContact": "Self Enquiry",
     "CityTier": 1.0,
