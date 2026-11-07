@@ -1,0 +1,14 @@
+artifact_uri: file:///content/tourism_project_mlops/mlruns/413816311459961601/7377da30616f491f9f51e90ab7eef088/artifacts
+end_time: 1794057177049
+entry_point_name: ''
+experiment_id: '413816311459961601'
+lifecycle_stage: active
+run_id: 7377da30616f491f9f51e90ab7eef088
+run_name: judicious-kite-724
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1794057176515
+status: 3
+tags: []
+user_id: root
